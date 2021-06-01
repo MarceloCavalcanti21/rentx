@@ -52,7 +52,7 @@ class ImportCategoryUseCase {
             const existingCategory = await this.categoriesRepository.findByName(name);
 
             if (!existingCategory) {
-                this.categoriesRepository.create({
+                await this.categoriesRepository.create({
                     name,
                     description,
                 });

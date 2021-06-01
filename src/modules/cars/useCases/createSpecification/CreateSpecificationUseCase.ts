@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { ISpecificationsRepository } from "../../repositories/ISpecificationsRepository";
+import { ISpecificationsRepository } from '../../repositories/ISpecificationsRepository';
 
 interface IRequest {
     name: string;
@@ -9,7 +9,7 @@ interface IRequest {
 @injectable()
 class CreateSpecificationUseCase {
     constructor(
-        @inject("SpecificationsRepository")
+        @inject('SpecificationsRepository')
         private specificationsRepository: ISpecificationsRepository
     ) {}
     
@@ -20,7 +20,7 @@ class CreateSpecificationUseCase {
             throw new Error('Essa categoria já existe.');
         }
     
-        this.specificationsRepository.create({ name, description });
+        await this.specificationsRepository.create({ name, description });
     }
 }
 
