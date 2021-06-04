@@ -4,6 +4,8 @@ import { sign } from 'jsonwebtoken';
 
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
+import AppError from '../../../../errors/AppError';
+
 interface IRequest {
     email: string;
     password: string;
@@ -32,13 +34,13 @@ class AuthenticateUserUseCase {
         const user = await this.usersRepository.findByEmail(email);
 
         if (!user) {
-            throw new Error('E-mail ou senha incorretos');
+            throw new AppError('E-mail ou senha incorretos');
         }
 
         const passwordMatch = await compare(password, user.password);
 
         if (!passwordMatch) {
-            throw new Error('E-mail ou senha incorretos');
+            throw new AppError('E-mail ou senha incorretos');
         }
 
         const token = sign({}, '58ba6b3d7f792e27c01696773ecaa7f6', {

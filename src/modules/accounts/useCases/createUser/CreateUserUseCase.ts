@@ -4,6 +4,8 @@ import { hash } from 'bcrypt';
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
+import AppError from '../../../../errors/AppError';
+
 @injectable()
 class CreateUserUseCase {
     constructor(
@@ -21,7 +23,7 @@ class CreateUserUseCase {
         const userAllreadyExistis = await this.usersRepository.findByEmail(email);
 
         if (userAllreadyExistis) {
-            throw new Error('E-mail já cadastrado');
+            throw new AppError('E-mail já cadastrado');
         }
 
         const passwordHash = await hash(password, 8);
