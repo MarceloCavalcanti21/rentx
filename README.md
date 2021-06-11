@@ -2,7 +2,6 @@
 
 **Requisitos Funcionais** => (quais são as funcionalidades)
 [] Deve ser possível cadastrar um novo carro
-[] Deve ser possível listar todas as categorias
 
 **Requisitos Não Funcionais** => (banco de dados, biblioteca etc)
 
