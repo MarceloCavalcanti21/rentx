@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { Category } from './Category';
+import { Specification } from './Specification';
 
 @Entity('cars')
 class Car {
@@ -35,6 +36,16 @@ class Car {
 
     @Column()
     category_id: string;
+
+    @ManyToMany(() => Specification)
+    @JoinTable({
+        name: 'specifications_cars',
+        // Coluna que referencia a nossa tabela base, nesse caso, estamos na entidade de Carros então referenciamos a coluna car_id
+        joinColumns: [{ name: 'car_id' }],
+        // Coluna de ligação, que é ligada ao que queremos trazer, no caso, specifications (propriedade abaixo)
+        inverseJoinColumns: [{ name: 'specification_id' }],
+    })
+    specifications: Specification[];
 
     @CreateDateColumn()
     created_at: Date;
